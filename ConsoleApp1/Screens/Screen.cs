@@ -1,14 +1,7 @@
 ﻿using SynOS.Applications;
-using SynOS.Data;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace SynOS
 {
@@ -67,12 +60,8 @@ namespace SynOS
             
         };
 
-        public List<ScreenObject> screenObjects = new List<ScreenObject>();
         public bool active = true;
-        // ScreenObjects...
-        // Hier sind alle ScreenObjects. Sowas wie Listenansicht, UserInput, ...
-        public ListSelection listSelection = new ListSelection();
-        //...
+
         static ApplicationExitException applicationExitException = new ApplicationExitException();
         static Application currentApplication = null;
         public int mainApplication = 1; //Main Panel
@@ -80,9 +69,41 @@ namespace SynOS
         {
             while (active)
             {
-                Console.WriteLine(StartApplication(mainApplication));
+                Console.WriteLine("Screen wird gestartet...");
+                Thread.Sleep(4500);
+                Console.WriteLine("Fertig!");
+                Thread.Sleep(1000);
+                Console.WriteLine("Main-Application wird gestartet");
+                Thread.Sleep(500);
+                var exc = StartApplication(mainApplication);
+                Console.WriteLine("Application quit");
+                Console.WriteLine(exc.ToString());
+                switch (exc)
+                {
+                    case ApplicationExitException.user_close:
+                        break;
+                    case ApplicationExitException.restart:
+                        break;
+                }
             }
         }
+
+        public virtual void Exit()
+        {
+            active = false;
+            WriteShutDownMessage();
+        }
+
+        void WriteShutDownMessage()
+        {
+            Console.WriteLine("Der Screen wird beendet.");
+            Thread.Sleep(550);
+            Console.WriteLine("Aufräumen...");
+            Thread.Sleep(100);
+            Console.WriteLine("Bis bald :)");
+            Thread.Sleep(1000);
+        }
+
         public virtual void Update()
         {
         }
@@ -98,55 +119,5 @@ namespace SynOS
             applicationExitException = currentApplication.Run();
             return applicationExitException;
         }
-
-        public void Handle()
-        {
-
-
-
-            //ShowDirectory(Program.editingModPath);
-            ConsoleKeyInfo key = Console.ReadKey(true);
-            switch (key.Key)
-            {
-                case ConsoleKey.DownArrow:
-                    listSelection.Move(Direction.Down);
-                    break;
-                case ConsoleKey.UpArrow:
-                    listSelection.Move(Direction.Up);
-                    break;
-                case ConsoleKey.LeftArrow:
-                    listSelection.Back();
-                    break;
-                case ConsoleKey.RightArrow:
-                    listSelection.Enter();
-                    break;
-            }
-        }
-
-        public static string GetTitleString(string title)
-        {
-            return $"└─» {title}";
-        }
-
-        public static void ShowDirectory(string path)
-        {
-            Console.WriteLine(GetTitleString(path));
-            var directories = Directory.GetDirectories(path);
-            for(int i = 0; i < directories.Length; i++)
-            {
-                var printString = $" └─■ " + directories[i].Replace(path, "");
-                Console.WriteLine(printString);
-            }
-            var files = Directory.GetFiles(path);
-            for (int i = 0; i < files.Length; i++)
-            {
-                var printString = $" └─■ " + files[i].Replace(path, "");
-                Console.WriteLine(printString);
-            }
-        }
-
-
     }
-
-
 }

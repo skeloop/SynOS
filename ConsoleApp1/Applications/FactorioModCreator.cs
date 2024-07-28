@@ -16,20 +16,14 @@ namespace SynOS.Applications
         }; 
         void Print()
         {
-            Console.Clear();
             Console.WriteLine("Options: ");
             foreach(var option in optionsList) { Console.WriteLine("--"+option); }
         }
 
         public override void Start()
         {
+            Console.Clear();
             Print();
         }
-
-        public override void Update()
-        {
-            
-        }
-
     }
 }

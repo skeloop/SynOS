@@ -20,7 +20,7 @@ namespace SynOS.Applications
 
         public override void Start()
         {
-            Console.WriteLine("Start");
+            DisableRuntimeNotification();
             Console.Title = $"{ProgramInit.title} - {displayName}";
             directories = Directory.GetDirectories(basePath);
             currentPath = basePath;
@@ -115,7 +115,7 @@ namespace SynOS.Applications
             }
             
         }
-
+        // Crasht aktuell noch wenn auf einen Ordner zugegriffen wird ohne Rechte
         public void NavigateSubFolder()
         {
             var dir = directories[currentSelectionIndex];

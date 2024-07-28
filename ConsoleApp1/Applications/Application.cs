@@ -1,25 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SynOS.Applications
 {
-    public enum ApplicationExitException { user_close, restart }
+    public enum ApplicationExitException { user_close, restart, shutdown }
 
 
-    public class Application : UserInput
+    public class Application
     {
         public string displayName;
         public string description;
         public bool disableOnDesktop = false;
         public bool running = true;
+        public bool runtimeNotification = true;
 
         public ApplicationExitException Run()
         {
             Start();
             Console.Title = $"{ProgramInit.title} | {displayName}";
+
+            
+
             while (running)
             {
                 Update();
@@ -29,14 +29,23 @@ namespace SynOS.Applications
         }
         public virtual void Start()
         {
-            Console.WriteLine("Empty Application Boot -> Start Method get's called.");
-            Console.Beep();
-
+            if (runtimeNotification)
+            {
+                Console.Clear();
+                Console.WriteLine("Empty Application Boot -> Start Method get's called.");
+                Console.WriteLine("Drücke ESC um diese Application zu verlassen");
+                Console.Beep();
+            }
         }
         public virtual void Update()
         {
-            Console.WriteLine("Empty Application -> Update Method get's called.");
-            Console.Beep();
+            if (runtimeNotification)
+            {
+                Console.Clear();
+                Console.WriteLine("Empty Application -> Update Method get's called.");
+                Console.WriteLine("Drücke ESC um diese Application zu verlassen");
+                Console.Beep();
+            }
         }
 
         public virtual void OnKey(ConsoleKeyInfo consoleKey)
@@ -52,6 +61,11 @@ namespace SynOS.Applications
         public void Close()
         {
             running = false;
+        }
+
+        public void DisableRuntimeNotification()
+        {
+            runtimeNotification = false;
         }
     }
 }

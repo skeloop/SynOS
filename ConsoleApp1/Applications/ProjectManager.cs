@@ -8,9 +8,6 @@ namespace SynOS.Applications
 {
     internal class ProjectManager : Application
     {
-        public override void Update()
-        {
-            
-        }
+
     }
 }

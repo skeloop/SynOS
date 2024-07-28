@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SynOS
 {
@@ -20,7 +17,7 @@ namespace SynOS
 
         public List<PrintInformation> printTexts = new List<PrintInformation>();
 
-        public void CreateListElement(string objectNames)
+        public void AddListElement(string objectNames)
         {
             ListElement listElement = new ListElement()
             {
