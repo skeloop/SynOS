@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace SynOS.Applications
 {
     public enum ApplicationExitException { user_close, restart }
-    public class Application
+
+
+    public class Application : UserInput
     {
         public string displayName;
         public string description;
@@ -17,6 +19,7 @@ namespace SynOS.Applications
         public ApplicationExitException Run()
         {
             Start();
+            Console.Title = $"{ProgramInit.title} | {displayName}";
             while (running)
             {
                 Update();
@@ -26,8 +29,9 @@ namespace SynOS.Applications
         }
         public virtual void Start()
         {
-            
-          
+            Console.WriteLine("Empty Application Boot -> Start Method get's called.");
+            Console.Beep();
+
         }
         public virtual void Update()
         {

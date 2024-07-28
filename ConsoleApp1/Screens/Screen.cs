@@ -22,22 +22,49 @@ namespace SynOS
             new Explorer()
             {
                 displayName = "Explorer",
-                description = "Explorer um Daten zu durchsuchen",
+                description = "Explorer um Daten zu durchsuchen.\n||",
                 running = true,
             },
             new MainPanel()
             {
                 displayName = "Panel",
-                description = "Hier ist der Arbeitsbereich",
+                description = "Hier ist der Arbeitsbereich.\n||",
                 running = true,
                 disableOnDesktop = true,
             },
             new ObjectCatalog()
             {
                 displayName = "C# Objektkatalog",
-                description = "Analysiere C# Objekte/Elemente visuell",
+                description = "Analysiere C# Objekte/Elemente visuell.\n||",
                 running = true,
+            },
+            new ProjectManager()
+            {
+                displayName = "Projektmanager",
+                description = "Bietet funktionalitäten für fortgeschrittene Datei bearbeitung.\n||",
+                running = true,
+            },
+            new FactorioModCreator()
+            {
+                displayName = "FMC - Factorio Mod Creator",
+                description = "Bietet eine Visuelle möglichkeit Mods für Factorio zu erstellen.\n||      Untersucht Struktur des Spiels und stellt diese bereit.\n||"
+            },
+            new LinuxBride()
+            {
+                displayName = "LinuxBridge",
+                description = "Remote Server/Desktop steuerung. Dateiübertragung. Gruppenmanagment.\n||"
+            },
+            new PiConnector()
+            {
+                displayName = "Pi-Connector",
+                description = "Rasperry-Pi GPIO Pins über .NET(C#) steuern.\n||"
+            },
+            new Settings()
+            {
+                displayName = "Einstellungen",
+                description = "Verwalte globale Einstellungen.\n||"
             }
+            
         };
 
         public List<ScreenObject> screenObjects = new List<ScreenObject>();
@@ -53,13 +80,7 @@ namespace SynOS
         {
             while (active)
             {
-                Console.WriteLine("Screen wurde detached");
-                Console.WriteLine("Screen neu starten...");
-                Console.WriteLine("Lade...");
-                Thread.Sleep(50);
-                Console.Title = $"{ProgramInit.title} | Hauptmenü";
                 Console.WriteLine(StartApplication(mainApplication));
-                
             }
         }
         public virtual void Update()

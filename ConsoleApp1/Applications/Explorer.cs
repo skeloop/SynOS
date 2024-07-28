@@ -86,7 +86,6 @@ namespace SynOS.Applications
         {
             Console.Clear();
             string[] directories = Directory.GetDirectories(currentPath);
-            files = Directory.GetDirectories(currentPath);
             var iterationIndex = 0;
             foreach (var dir in directories)
             {
@@ -120,8 +119,8 @@ namespace SynOS.Applications
         public void NavigateSubFolder()
         {
             var dir = directories[currentSelectionIndex];
+            directories = Directory.GetDirectories(dir);
             Console.WriteLine(dir);
-            Thread.Sleep(1000);
             currentPath = dir;
             currentSelectionIndex = 0;
             ShowDirectories();

@@ -63,8 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Applications\Explorer.cs" />
+    <Compile Include="Applications\FactorioModCreator.cs" />
+    <Compile Include="Applications\LinuxBride.cs" />
     <Compile Include="Applications\MainPanel.cs" />
     <Compile Include="Applications\ObjectCatalog.cs" />
+    <Compile Include="Applications\PiConnector.cs" />
+    <Compile Include="Applications\ProjectManager.cs" />
+    <Compile Include="Applications\Settings.cs" />
     <Compile Include="DataBinding.cs" />
     <Compile Include="Data\ListElement.cs" />
     <Compile Include="IScreen.cs" />
