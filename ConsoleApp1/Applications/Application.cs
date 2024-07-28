@@ -11,7 +11,7 @@ namespace SynOS.Applications
     {
         public string displayName;
         public string description;
-
+        public bool disableOnDesktop = false;
         public bool running = true;
 
         public ApplicationExitException Run()
@@ -31,7 +31,8 @@ namespace SynOS.Applications
         }
         public virtual void Update()
         {
-
+            Console.WriteLine("Empty Application -> Update Method get's called.");
+            Console.Beep();
         }
 
         public virtual void OnKey(ConsoleKeyInfo consoleKey)

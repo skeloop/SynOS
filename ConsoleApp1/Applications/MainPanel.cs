@@ -5,7 +5,7 @@ namespace SynOS.Applications
 {
     public class MainPanel : Application
     {
-        
+        public int appCount;
         public int selectIndex = 0;
 
         public override void Update()
@@ -19,10 +19,20 @@ namespace SynOS.Applications
             int index = 0;
             foreach(var app in Screen.applications)
             {
-                
-                if (index == selectIndex) Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"||  {index} » " + app.displayName);
+
+                if (app.disableOnDesktop)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine($"||  {index} » " + app.displayName + "               [Kein Zugriff]");
+                } else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    if (index == selectIndex) Console.ForegroundColor = ConsoleColor.Green;
+                    
+                    Console.WriteLine($"||  {index} » " + app.displayName);
+                }
                 Console.ForegroundColor = ConsoleColor.DarkGray;
+
                 index++;
             }
 

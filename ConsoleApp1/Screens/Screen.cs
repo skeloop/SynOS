@@ -30,6 +30,7 @@ namespace SynOS
                 displayName = "Panel",
                 description = "Hier ist der Arbeitsbereich",
                 running = true,
+                disableOnDesktop = true,
             },
             new ObjectCatalog()
             {
@@ -56,7 +57,9 @@ namespace SynOS
                 Console.WriteLine("Screen neu starten...");
                 Console.WriteLine("Lade...");
                 Thread.Sleep(50);
+                Console.Title = $"{ProgramInit.title} | Hauptmenü";
                 Console.WriteLine(StartApplication(mainApplication));
+                
             }
         }
         public virtual void Update()
