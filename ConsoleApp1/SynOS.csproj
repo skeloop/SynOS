@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applications\Chat.cs" />
     <Compile Include="Applications\Explorer.cs" />
     <Compile Include="Applications\FactorioModCreator.cs" />
     <Compile Include="Applications\LinuxBride.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="ScreenObjects\ScreenObject.cs" />
     <Compile Include="TestClass.cs" />
-    <Compile Include="UserInput.cs" />
+    <Compile Include="UserInputThread.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

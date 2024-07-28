@@ -9,6 +9,7 @@ namespace SynOS.Applications
         public int selectIndex = 0;
         public override void Start()
         {
+            userInputThread.KeyPressed += Listener;
             Render();
         }
         public override void Update()
@@ -16,6 +17,40 @@ namespace SynOS.Applications
 
             
         }
+
+        void Listener(ConsoleKey consoleKey)
+        {
+            if (consoleKey == ConsoleKey.DownArrow)
+            {
+                if (selectIndex < Screen.applications.Count - 1)
+                {
+
+                    if (selectIndex + 1 < Screen.applications.Count - 1 && Screen.applications[selectIndex + 1].disableOnDesktop)
+                    {
+                        selectIndex++;
+                    }
+                    selectIndex++;
+                    Render();
+                }
+            }
+            if (consoleKey == ConsoleKey.UpArrow)
+            {
+                if (selectIndex > 0)
+                {
+                    if (selectIndex - 1 > 0 && Screen.applications[selectIndex - 1].disableOnDesktop)
+                    {
+                        selectIndex--;
+                    }
+                    selectIndex--;
+                    Render();
+                }
+            }
+            if (consoleKey == ConsoleKey.Enter)
+            {
+                Screen.StartApplication(selectIndex);
+            }
+        }
+
         void Render()
         {
             Console.Clear();
@@ -48,37 +83,6 @@ namespace SynOS.Applications
             }
 
             Console.WriteLine("[]===================================[]");
-        }
-        public override void OnKey(ConsoleKeyInfo consoleKey)
-        {
-            if (consoleKey.Key == ConsoleKey.DownArrow)
-            {
-                if (selectIndex < Screen.applications.Count - 1)
-                {
-                    
-                    if (selectIndex+1 < Screen.applications.Count -1 && Screen.applications[selectIndex + 1].disableOnDesktop)
-                    {
-                        selectIndex++;
-                    }
-                    selectIndex++;
-                }
-            }
-            if (consoleKey.Key == ConsoleKey.UpArrow)
-            {
-                if (selectIndex > 0)
-                {
-                    if (selectIndex - 1 > 0 && Screen.applications[selectIndex - 1].disableOnDesktop)
-                    {
-                        selectIndex--;
-                    }
-                    selectIndex--;
-                }
-            }
-            if (consoleKey.Key == ConsoleKey.Enter)
-            {
-                Screen.StartApplication(selectIndex);
-            }
-            Render();
         }
     }
 }

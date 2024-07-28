@@ -7,6 +7,8 @@ namespace SynOS.Applications
 
     public class Application
     {
+        public UserInputThread userInputThread = new UserInputThread();
+
         public string displayName;
         public string description;
         public bool disableOnDesktop = false;
@@ -15,15 +17,12 @@ namespace SynOS.Applications
 
         public ApplicationExitException Run()
         {
+            userInputThread.Init();
             Start();
             Console.Title = $"{ProgramInit.title} | {displayName}";
-
-            
-
             while (running)
             {
                 Update();
-                OnKey(Console.ReadKey());
             }
             return ApplicationExitException.user_close;
         }
@@ -48,7 +47,8 @@ namespace SynOS.Applications
             }
         }
 
-        public virtual void OnKey(ConsoleKeyInfo consoleKey)
+        // Wird in neuen Thread verschoben
+        void OnKey(ConsoleKeyInfo consoleKey)
         {
             switch (consoleKey.Key)
             {
@@ -66,6 +66,11 @@ namespace SynOS.Applications
         public void DisableRuntimeNotification()
         {
             runtimeNotification = false;
+        }
+
+        public void KeyPressed(ConsoleKeyInfo consoleKeyInfo)
+        {
+            Console.WriteLine(consoleKeyInfo.Key == ConsoleKey.DownArrow);
         }
     }
 }

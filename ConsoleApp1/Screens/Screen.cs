@@ -56,6 +56,11 @@ namespace SynOS
             {
                 displayName = "Einstellungen",
                 description = "Verwalte globale Einstellungen.\n||"
+            },
+            new Chat()
+            {
+                displayName = "Chat",
+                description = "Verbindet dich mit dem Globalen Chat"
             }
             
         };

@@ -20,6 +20,7 @@ namespace SynOS.Applications
 
         public override void Start()
         {
+            userInputThread.KeyPressed += KeyInput;
             DisableRuntimeNotification();
             Console.Title = $"{ProgramInit.title} - {displayName}";
             directories = Directory.GetDirectories(basePath);
@@ -32,9 +33,10 @@ namespace SynOS.Applications
             
         }
 
-        public override void OnKey(ConsoleKeyInfo consoleKey)
+        public void KeyInput(ConsoleKey consoleKey)
         {
-            switch(consoleKey.Key)
+            Console.WriteLine("KeyInput "+consoleKey.ToString());
+            switch(consoleKey)
             {
                 case ConsoleKey.Enter:
                     NavigateSubFolder();

@@ -7,14 +7,16 @@ using System.Runtime.InteropServices;
 
 namespace SynOS
 {
-
-
     public class ProgramInit
     {
+        static DataBinding TestClass = new DataBinding();
+        public static Screen mainScreen = new Screen();
+        
+        //Test
+        static Print print = new Print();
         public static string title = "SynOS";
-        public static void Init()
+        public void Init()
         {
-            UserInput.Init();
             Console.Title = "SynOS";
             Console.WriteLine("Drücke ENTER");
         }
@@ -23,16 +25,11 @@ namespace SynOS
 
     internal class Program
     {
-
-        static DataBinding TestClass = new DataBinding();
-        static Screen mainScreen = new Screen();
-
-        static Print print = new Print();
-
+        static ProgramInit programInit = new ProgramInit();
         static void Main(string[] args)
         {
-            ProgramInit.Init();
-            mainScreen.Start();
+            programInit.Init();
+            ProgramInit.mainScreen.Start();
             Console.ReadKey(true);
         }
 
