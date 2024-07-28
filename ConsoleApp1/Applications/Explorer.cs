@@ -28,9 +28,14 @@ namespace SynOS.Applications
 
         }
 
-        public override void OnKey(ConsoleKey consoleKey)
+        public override void OnKey(ConsoleKeyInfo consoleKey)
         {
-            base.OnKey(consoleKey);
+            switch(consoleKey.Key)
+            {
+                case ConsoleKey.Enter:
+                    NavigateSubFolder();
+                    break;
+            }
         }
 
 

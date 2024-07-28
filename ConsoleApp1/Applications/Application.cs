@@ -20,6 +20,7 @@ namespace SynOS.Applications
             while (running)
             {
                 Update();
+                OnKey(Console.ReadKey());
             }
             return ApplicationExitException.user_close;
         }
@@ -33,9 +34,9 @@ namespace SynOS.Applications
 
         }
 
-        public virtual void OnKey(ConsoleKey consoleKey)
+        public virtual void OnKey(ConsoleKeyInfo consoleKey)
         {
-            switch (consoleKey)
+            switch (consoleKey.Key)
             {
                 case ConsoleKey.Escape:
                     Close(); 

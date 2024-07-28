@@ -27,22 +27,26 @@ namespace SynOS.Applications
             }
 
             Console.WriteLine("[]===================================[]");
-            ConsoleKeyInfo key = GetKey();
-            if (key.Key == ConsoleKey.DownArrow)
+            
+        }
+
+        public override void OnKey(ConsoleKeyInfo consoleKey)
+        {
+            if (consoleKey.Key == ConsoleKey.DownArrow)
             {
-                if (selectIndex < Screen.applications.Count-1)
+                if (selectIndex < Screen.applications.Count - 1)
                 {
                     selectIndex++;
                 }
             }
-            if (key.Key == ConsoleKey.UpArrow)
+            if (consoleKey.Key == ConsoleKey.UpArrow)
             {
                 if (selectIndex > 0)
                 {
                     selectIndex--;
                 }
             }
-            if (key.Key == ConsoleKey.Enter)
+            if (consoleKey.Key == ConsoleKey.Enter)
             {
                 Screen.StartApplication(selectIndex);
             }
