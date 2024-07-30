@@ -7,6 +7,9 @@ namespace SynOS.Applications
 
     public class Application
     {
+        public delegate void ApplicationCloseEvent();
+        public event ApplicationCloseEvent ApplicationClose;
+
         public UserInputThread userInputThread = new UserInputThread();
 
         public string displayName;
@@ -18,6 +21,8 @@ namespace SynOS.Applications
         public ApplicationExitException Run()
         {
             userInputThread.Init();
+            UserInputThread.KeyPressed += OnKey;
+            UserInputThread.KeyPressed += KeyPressed;
             Start();
             Console.Title = $"{ProgramInit.title} | {displayName}";
             while (running)
@@ -47,10 +52,9 @@ namespace SynOS.Applications
             }
         }
 
-        // Wird in neuen Thread verschoben
-        void OnKey(ConsoleKeyInfo consoleKey)
+        void OnKey(ConsoleKey consoleKey)
         {
-            switch (consoleKey.Key)
+            switch (consoleKey)
             {
                 case ConsoleKey.Escape:
                     Close(); 
@@ -60,6 +64,14 @@ namespace SynOS.Applications
 
         public void Close()
         {
+            // ApplicationClose => Globales Event
+            if (ApplicationClose != null)
+            {
+                Console.WriteLine("Applicatrion Close triggered");
+                Console.ReadKey();
+                ApplicationClose();
+            }
+            
             running = false;
         }
 
@@ -68,9 +80,16 @@ namespace SynOS.Applications
             runtimeNotification = false;
         }
 
-        public void KeyPressed(ConsoleKeyInfo consoleKeyInfo)
+        public virtual void KeyPressed(ConsoleKey consoleKey)
         {
-            Console.WriteLine(consoleKeyInfo.Key == ConsoleKey.DownArrow);
+            Console.WriteLine($"({displayName}) | Empty virtual KeyPresssed: " + consoleKey.ToString());
+        }
+
+        public virtual void Render()
+        {
+            Console.WriteLine("[]--------------------------[]");
+            Console.WriteLine("[] Empty Application Window []");
+            Console.WriteLine("[]--------------------------[]");
         }
     }
 }

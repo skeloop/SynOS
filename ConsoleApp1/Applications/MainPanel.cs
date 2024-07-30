@@ -9,7 +9,7 @@ namespace SynOS.Applications
         public int selectIndex = 0;
         public override void Start()
         {
-            userInputThread.KeyPressed += Listener;
+            UserInputThread.KeyPressed += InputListener;
             Render();
         }
         public override void Update()
@@ -18,7 +18,7 @@ namespace SynOS.Applications
             
         }
 
-        void Listener(ConsoleKey consoleKey)
+        void InputListener(ConsoleKey consoleKey)
         {
             if (consoleKey == ConsoleKey.DownArrow)
             {

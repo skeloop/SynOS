@@ -57,12 +57,16 @@ namespace SynOS
                 displayName = "Einstellungen",
                 description = "Verwalte globale Einstellungen.\n||"
             },
+            new ChatServer()
+            {
+                displayName = "Chat - Server",
+                description = "(server-side)"
+            },
             new Chat()
             {
-                displayName = "Chat",
+                displayName = "Chat - Client",
                 description = "Verbindet dich mit dem Globalen Chat"
             }
-            
         };
 
         public bool active = true;
@@ -70,27 +74,14 @@ namespace SynOS
         static ApplicationExitException applicationExitException = new ApplicationExitException();
         static Application currentApplication = null;
         public int mainApplication = 1; //Main Panel
+
         public virtual void Start()
         {
-            while (active)
-            {
-                Console.WriteLine("Screen wird gestartet...");
-                Thread.Sleep(4500);
-                Console.WriteLine("Fertig!");
-                Thread.Sleep(1000);
-                Console.WriteLine("Main-Application wird gestartet");
-                Thread.Sleep(500);
-                var exc = StartApplication(mainApplication);
-                Console.WriteLine("Application quit");
-                Console.WriteLine(exc.ToString());
-                switch (exc)
-                {
-                    case ApplicationExitException.user_close:
-                        break;
-                    case ApplicationExitException.restart:
-                        break;
-                }
-            }
+            Console.WriteLine("First Screen start...");
+            Thread.Sleep(1000);
+            Console.WriteLine("Load Main Application");
+            Thread.Sleep(1000);
+            StartApplication(mainApplication);
         }
 
         public virtual void Exit()
@@ -117,8 +108,13 @@ namespace SynOS
         {
             if (currentApplication != null)
             {
+                Console.WriteLine("Closing current application...");
+                Thread.Sleep(2500);
                 currentApplication.Close();
             }
+            Console.WriteLine($"Application boot: {applicationID}");
+            Console.WriteLine($"Application name: {applications[applicationID]}");
+            Thread.Sleep(5000);
             currentApplication = applications[applicationID];
             currentApplication.running = true;
             applicationExitException = currentApplication.Run();

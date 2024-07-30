@@ -7,70 +7,56 @@ namespace SynOS
 {
     public class ListSelection : ScreenObject
     {
-        public string currentPath = "E:\\Arbeitsplatz\\FCM\\FCM_Console";
-
-        public List<ListElement> listElements = new List<ListElement>();
-
         public int currentSelectionIndex = 0;
-        public int minIndex = 0;
-        public int maxIndex = 20;
-
         public List<PrintInformation> printTexts = new List<PrintInformation>();
-
-        public void AddListElement(string objectNames)
+        public void AddListElement(string element)
         {
-            ListElement listElement = new ListElement()
+            printTexts.Add(new PrintInformation()
             {
-                name = objectNames.ToString().Replace(currentPath + "\\", "» "),
-                value = currentPath
-            };
-            listElements.Add(listElement);
+                text = element,
+                color = Print.standardPrintColor,
+                index = printTexts.Count
+            });
 
         }
-
-        
-
-        public void Move(Direction direction)
+        public void Setup()
         {
-            if (direction == Direction.Down && currentSelectionIndex < listElements.Count-1)
+            UserInputThread.KeyPressed += Move;
+        }
+        public void Move(ConsoleKey direction)
+        {
+            if (direction == ConsoleKey.DownArrow && currentSelectionIndex < printTexts.Count-1)
             {
                 currentSelectionIndex++;
             }
-            else if (direction == Direction.Up && currentSelectionIndex > minIndex)
+            else if (direction == ConsoleKey.UpArrow && currentSelectionIndex > 0)
             {
                 currentSelectionIndex--;
             }
-            PrintList();
         }
         public void Enter()
         {
-            string enteredPath = listElements[currentSelectionIndex].value as string;
-            var dirs = Directory.GetDirectories(enteredPath);
-            foreach (var dir in dirs)
-            {
-                Print("└─ " + dir);
-            }
-            currentPath = enteredPath;
-            PrintList();
 
         }
         public void Back()
         {
-            PrintList();
-        }
 
-        /// <summary>
-        /// Gibt keine Nachricht in der Konsole aus. Fügt nur eine Nachricht zu einer Liste hinzu die zu einem späteren Zeitpunkt angezeigt wird.
-        /// </summary>
-        public void Print(string message)
+        }
+        public override void Render()
         {
-            printTexts.Add(new PrintInformation()
+            Console.Clear();
+            foreach (PrintInformation printInformation in printTexts)
             {
-                text = message,
-                color = ConsoleColor.Gray,
-            });
+                Console.ForegroundColor = printInformation.color;
+                if (currentSelectionIndex == printInformation.index)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+                Console.WriteLine(printInformation.text);
+            }
         }
 
+        /*
         public void PrintList()
         {
             Console.Clear();
@@ -105,5 +91,6 @@ namespace SynOS
             
             Console.ForegroundColor = ConsoleColor.White;
         }
+        */
     }
 }

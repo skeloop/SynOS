@@ -16,6 +16,7 @@ namespace SynOS
     }
     public class Print
     {
+        public static ConsoleColor standardPrintColor = ConsoleColor.DarkGray;
         public List<PrintInformation> printInformation = new List<PrintInformation>()
         {
             new PrintInformation()

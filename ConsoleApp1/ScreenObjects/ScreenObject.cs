@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SynOS
 {
@@ -6,6 +7,14 @@ namespace SynOS
     {
         public Print print;
         public bool active = true;
-        public List<object> components = new List<object>();
+
+        public virtual void Render()
+        {
+            Console.Clear();
+            Console.WriteLine("[]--------------------[]");
+            Console.WriteLine("[] Empty ScreenObject []");
+            Console.WriteLine("[]--------------------[]");
+        }
     }
+
 }

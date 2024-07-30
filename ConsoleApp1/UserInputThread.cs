@@ -10,7 +10,7 @@ namespace SynOS
     public class UserInputThread
     {
         public delegate void OnKeyPress(ConsoleKey consoleKey);
-        public event OnKeyPress KeyPressed;
+        public static event OnKeyPress KeyPressed;
 
         public static ConsoleKeyInfo lastPressedKey;
 

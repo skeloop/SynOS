@@ -63,10 +63,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Applications\Chat.cs" />
+    <Compile Include="Applications\ChatServer.cs" />
     <Compile Include="Applications\Explorer.cs" />
     <Compile Include="Applications\FactorioModCreator.cs" />
     <Compile Include="Applications\LinuxBride.cs" />
     <Compile Include="Applications\MainPanel.cs" />
+    <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\Network.cs" />
     <Compile Include="Applications\ObjectCatalog.cs" />
     <Compile Include="Applications\PiConnector.cs" />
     <Compile Include="Applications\ProjectManager.cs" />

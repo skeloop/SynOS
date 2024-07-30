@@ -20,7 +20,7 @@ namespace SynOS.Applications
 
         public override void Start()
         {
-            userInputThread.KeyPressed += KeyInput;
+            UserInputThread.KeyPressed += KeyInput;
             DisableRuntimeNotification();
             Console.Title = $"{ProgramInit.title} - {displayName}";
             directories = Directory.GetDirectories(basePath);
@@ -121,11 +121,23 @@ namespace SynOS.Applications
         public void NavigateSubFolder()
         {
             var dir = directories[currentSelectionIndex];
-            directories = Directory.GetDirectories(dir);
-            Console.WriteLine(dir);
-            currentPath = dir;
-            currentSelectionIndex = 0;
-            ShowDirectories();
+            try
+            {
+                directories = Directory.GetDirectories(dir);
+                Console.WriteLine(dir);
+                currentPath = dir;
+                currentSelectionIndex = 0;
+                ShowDirectories();
+            } 
+            catch (Exception ex)
+            {
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("Fehler:");
+                Console.WriteLine(ex.ToString());
+            }
+
+            
+
         }
     }
 }

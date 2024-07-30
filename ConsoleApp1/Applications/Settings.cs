@@ -6,7 +6,33 @@ using System.Threading.Tasks;
 
 namespace SynOS.Applications
 {
-    internal class Settings : Application
+    public class Settings : Application
     {
+        ListSelection settingsListSelection = new ListSelection();
+
+        static List<string> settings = new List<string>()
+        {
+            "Benutzerfarbe",
+            "Speicherort",
+            "Netzwerk",
+            "Applications"
+        };
+
+        public override void Start()
+        {
+            settingsListSelection.printTexts.Clear();
+            foreach (var setting in settings)
+            {
+                settingsListSelection.AddListElement(setting);
+            }
+            settingsListSelection.Render();
+        }
+
+        public override void Update()
+        {
+            
+        }
+
+
     }
 }
